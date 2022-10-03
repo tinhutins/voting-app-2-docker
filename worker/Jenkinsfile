@@ -50,13 +50,16 @@ pipeline {
         }
         stage('package-docker') {
              agent any
+             when {
+              branch 'master'
+             }
             steps {
                 echo 'Packaging worker app with docker hehe'
     script {
 		docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerlogin'){
 		def workerImage = docker.build("hutinskit/worker:v${env.BUILD_ID}", "./worker")
 		workerImage.push()
-
+    workerImage.push("${env.BRANCH_NAME}")
 		}
     }
 

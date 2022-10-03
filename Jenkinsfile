@@ -100,19 +100,24 @@ pipeline {
         }
 
         stage('result-build') {
+          agent {
         docker { image 'node:16.13.1-alpine' }
+        }
             when {
               changeset "**/result/**"
       }
             steps {
                 echo 'compiling result app'
-    dir ('result'){
-                sh ' npm install'
-    }
+        dir ('result'){
+                    sh ' npm install'
+        }
             }
         }
         stage('result-test') {
+         agent {
           docker { image 'node:16.13.1-alpine' }
+
+          }
             when {
               changeset "**/result/**"
       }

@@ -1,8 +1,8 @@
 pipeline {
     agent none
-   }
+
     stages {
-        stage('build') 
+        stage('build') {
         agent {
 	docker {
         image 'maven:3.8.1-adoptopenjdk-11'
@@ -27,7 +27,7 @@ pipeline {
                 echo 'Running unit tests'
                 dir ('worker'){
                 sh 'mvn clean test'
-                }  
+                }
 	  }
         }
         stage('package') {
@@ -65,12 +65,12 @@ pipeline {
 		}
             }
         }
-}    
+}
     post {
         always {
             echo 'Pipeline for worker is completed.'
         }
     }
-    
-    
+
+
 }

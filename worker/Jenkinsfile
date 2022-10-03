@@ -30,7 +30,7 @@ pipeline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 {
                 }
 	  }
         }
-        stage('package) {
+        stage('package') {
             when {
 	      branch 'mester'
 	    }

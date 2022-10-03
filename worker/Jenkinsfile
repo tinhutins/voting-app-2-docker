@@ -51,7 +51,7 @@ pipeline {
         stage('package-docker') {
              agent any
             steps {
-                echo 'Packaging worker app with docker'
+                echo 'Packaging worker app with docker hehe'
     		script {
 
 		docker.withRegistry('https://index.docker.io/v1', 'dockerlogin')

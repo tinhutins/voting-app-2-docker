@@ -1,4 +1,4 @@
-pipeline {
+pipeline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 {
     agent none
 
     stages {
@@ -30,7 +30,7 @@ pipeline {
                 }
 	  }
         }
-        stage('package') {
+        stage('packag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e') {
             when {
 	      branch 'master'
 	    }
@@ -56,7 +56,7 @@ pipeline {
 		docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerlogin'){
 		def workerImage = docker.build("hutinskit/worker:v${env.BUILD_ID}", "./worker")
 		workerImage.push()
-		workerImage.push("${env.BRANC_NAME}")
+		
 		}
     }
 

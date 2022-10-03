@@ -1,12 +1,14 @@
 pipeline {
-    agent {
-        docker {
-        image 'maven:3.8.1-adoptopenjdk-11'
-        args  '-v $HOME/.m2:/root/.m2'
-    }
+    agent none
    }
     stages {
-        stage('build') {
+        stage('build') 
+        agent {
+	docker {
+        image 'maven:3.8.1-adoptopenjdk-11'
+        args  '-v $HOME/.m2:/root/.m2'
+       }
+       }
             steps {
                 echo 'compiling worker app!'
 		dir ('worker'){
@@ -15,6 +17,12 @@ pipeline {
             }
         }
         stage('test'){
+        agent {
+	docker {
+        image 'maven:3.8.1-adoptopenjdk-11'
+        args  '-v $HOME/.m2:/root/.m2'
+        }
+	}
             steps {
                 echo 'Running unit tests'
                 dir ('worker'){
@@ -26,6 +34,12 @@ pipeline {
             when {
 	      branch 'master'
 	    }
+        agent {
+	docker {
+        image 'maven:3.8.1-adoptopenjdk-11'
+        args  '-v $HOME/.m2:/root/.m2'
+	}
+	}
             steps {
                 echo 'Packaging worker app'
                 dir ('worker'){
@@ -34,9 +48,9 @@ pipeline {
                 }
             }
         }
-        stage('package') {
-            when {
-	      branch 'master'
+        stage('package-docker') {
+             agent any
+	     when {
 	      changeset "**/worker/**"
 	    }
             steps {

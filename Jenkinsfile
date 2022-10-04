@@ -8,6 +8,9 @@ pipeline {
             args  '-v $HOME/.m2:/root/.m2'
         }
        }
+       when {
+         changeset "**/worker/**"
+         }
             steps {
                 echo 'compiling worker app!'
         		dir ('worker'){
@@ -22,6 +25,9 @@ pipeline {
             args  '-v $HOME/.m2:/root/.m2'
         }
        }
+       when {
+         changeset "**/worker/**"
+         }
             steps {
                 echo 'Running unit tests'
                 dir ('worker'){
@@ -38,6 +44,7 @@ pipeline {
        }
             when {
 	      branch 'master'
+        changeset "**/worker/**"
 	    }
             steps {
                 echo 'Packaging worker app'
@@ -71,6 +78,9 @@ pipeline {
          args '--user root'
         }
         }
+        when {
+          changeset "**/vote/**"
+          }
             steps {
                 echo 'compilling vote app!!'
             dir ('vote'){
@@ -84,6 +94,9 @@ pipeline {
          args '--user root'
         }
         }
+        when {
+          changeset "**/vote/**"
+          }
 
             steps {
                 echo 'Running unit tests on vote app'
@@ -99,6 +112,7 @@ pipeline {
              when {
               branch 'master'
              }
+
             steps {
                 echo 'Packaging vote app with docker '
             script {
@@ -116,7 +130,9 @@ pipeline {
           agent {
         docker { image 'node:16.13.1-alpine' }
         }
-
+        when {
+          changeset "**/result/**"
+          }
             steps {
                 echo 'compiling result app'
             dir ('result'){
@@ -129,6 +145,9 @@ pipeline {
           docker { image 'node:16.13.1-alpine' }
 
           }
+          when {
+            changeset "**/result/**"
+            }
             steps {
                 echo 'Running unit tests on result app'
                 dir ('result'){

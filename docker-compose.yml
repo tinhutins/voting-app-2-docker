@@ -9,7 +9,7 @@ networks:
 
 services:
   vote:
-    image: tino/vote:latest
+    image: tino/vote:master
     build: ./vote
     ports:
       - 5000:80

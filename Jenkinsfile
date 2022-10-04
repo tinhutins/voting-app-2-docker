@@ -179,9 +179,9 @@ pipeline {
         agent any
 
 
-        tools {
-          jdk "JDK11" // the name you have given the JDK installation in Global Tool Configuration
-        }
+    #    tools {
+    #      jdk "JDK11" // the name you have given the JDK installation in Global Tool Configuration
+    #    }
 
         environment{
           sonarpath = tool 'SonarScanner' // the namdse you have given the sonarscanner installation in Global Tool Configuration
@@ -205,7 +205,7 @@ pipeline {
                 }
             }
         }
-        stage('deploy to dev'){
+        stage('deploy to dev!'){
            agent any
            when {
             branch 'master'

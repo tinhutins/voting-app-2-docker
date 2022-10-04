@@ -102,7 +102,7 @@ pipeline {
             steps {
                 echo 'Packaging vote app with docker '
             script {
-                docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin'){
+                docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerlogin'){
                 def workerImage = docker.build("hutinskit/vote:v${env.BUILD_ID}", "./vote")
                 workerImage.push()
                 workerImage.push("${env.BRANCH_NAME}")
@@ -146,7 +146,7 @@ pipeline {
             steps {
                 echo 'Packaging result app with docker '
             script {
-                docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin'){
+                docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerlogin'){
                 def workerImage = docker.build("hutinskit/result:v${env.BUILD_ID}", "./result")
                 workerImage.push()
                 workerImage.push("${env.BRANCH_NAME}")

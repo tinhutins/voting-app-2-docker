@@ -55,7 +55,7 @@ pipeline {
             steps {
                 echo 'Packaging worker app with docker '
             script {
-                docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin'){
+                docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerlogin'){
                 def workerImage = docker.build("hutinskit/worker:v${env.BUILD_ID}", "./worker")
                 workerImage.push()
                 workerImage.push("${env.BRANCH_NAME}")
@@ -157,6 +157,9 @@ pipeline {
         }
           stage('deploy to dev'){
            agent any
+           when {
+            branch 'master'
+           }
            steps{
              echo 'Deploy instavote app with docker compose'
              sh 'docker-compose up -d'

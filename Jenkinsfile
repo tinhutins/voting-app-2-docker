@@ -79,11 +79,7 @@ pipeline {
             }
         }
         stage('vote-test') {
-        agent {
-        docker { image 'python:2.7.16-slim'
-         args '--user root'
-        }
-    }
+        agent any
 
             steps {
                 echo 'Running unit tests on vote app'

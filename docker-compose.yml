@@ -9,7 +9,7 @@ networks:
 
 services:
   vote:
-    image: tino/vote:master
+    image: hutinskit/vote:master
     #build: ./vote
     ports:
       - 5000:80
@@ -33,7 +33,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
 
   result:
-    image: tino/result:master
+    image: hutinskit/result:master
     #build: ./result
     ports:
       - 5001:4000
@@ -43,7 +43,7 @@ services:
       - instavote
 
   worker:
-    image: tino/worker:master
+    image: hutinskit/worker:master
     #build: ./worker
     depends_on:
       - redis

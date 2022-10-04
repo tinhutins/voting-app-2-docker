@@ -178,17 +178,13 @@ pipeline {
         stage('Sonarqube') {
         agent any
 
-        environment {
-            JAVA_HOME="/opt/java/openjdk"
-            PATH="/opt/java/openjdk"
-        }
 
         tools {
           jdk "JDK11" // the name you have given the JDK installation in Global Tool Configuration
         }
 
         environment{
-          sonarpath = tool 'SonarScanner' // the name you have given the sonarscanner installation in Global Tool Configuration
+          sonarpath = tool 'SonarScanner' // the namdse you have given the sonarscanner installation in Global Tool Configuration
         }
 
         steps {

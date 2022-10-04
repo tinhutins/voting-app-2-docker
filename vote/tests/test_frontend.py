@@ -6,7 +6,7 @@ import unittest
 class VoteUnitTest(unittest.TestCase):
 
     def setUp(self):
-        """Unit ttrtroTest Setup"""
+        """Unit Test Setup"""
         self.app = app.test_client()
         self.app.testing = True
 
@@ -17,7 +17,7 @@ class VoteUnitTest(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
 
     def test_version_is_set(self):
-        """Agfgfdssert that version is set"""
+        """Assert that version is set"""
         result = self.app.get('/')
         assert 'Version' in str(result.data)
 

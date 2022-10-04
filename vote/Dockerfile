@@ -8,8 +8,9 @@ WORKDIR /app
 ADD requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
+RUN pwd && ls
 # Copy our code from the current folder to /app inside the container
-ADD ./vote /app
+ADD . /app
 
 # Make port 80 available for links and/or publish
 EXPOSE 80

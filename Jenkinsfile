@@ -64,15 +64,27 @@ pipeline {
 
             }
         }
+
+        stage('vote-build') {
+        agent {
+        docker { image 'python:2.7.16-slim'
+         args '--user root'
+        }
+        }
+            steps {
+                echo 'compilling vote app!!'
+            dir ('vote'){
+                        sh 'pip install -r requirements.txt '
+            }
+            }
+        }
         stage('vote-test') {
         agent {
         docker { image 'python:2.7.16-slim'
          args '--user root'
         }
     }
-            when {
-              changeset "**/vote/**"
-      }
+
             steps {
                 echo 'Running unit tests on vote app'
                 dir ('vote'){
@@ -103,14 +115,12 @@ pipeline {
           agent {
         docker { image 'node:16.13.1-alpine' }
         }
-            when {
-              changeset "**/result/**"
-      }
+
             steps {
                 echo 'compiling result app'
-        dir ('result'){
-                    sh ' npm install'
-        }
+            dir ('result'){
+                        sh ' npm install'
+            }
             }
         }
         stage('result-test') {
@@ -118,9 +128,6 @@ pipeline {
           docker { image 'node:16.13.1-alpine' }
 
           }
-            when {
-              changeset "**/result/**"
-      }
             steps {
                 echo 'Running unit tests on result app'
                 dir ('result'){

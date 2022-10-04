@@ -1,9 +1,8 @@
 pipeline {
-        agent {
-        docker { image 'node:16.13.1-alpine' }
-    }
+        agent none
     stages {
-        stage('build') {
+        stage('result-build') {
+        docker { image 'node:16.13.1-alpine' }
             when {
               changeset "**/result/**"
 	    }
@@ -14,7 +13,8 @@ pipeline {
 		}
             }
         }
-        stage('test') {
+        stage('result-test') {
+          docker { image 'node:16.13.1-alpine' }
             when {
               changeset "**/result/**"
 	    }
@@ -23,16 +23,34 @@ pipeline {
                 dir ('result'){
                 sh 'npm install'
                 sh 'npm test'
-                }  
+                }
 	  }
         }
+
+        stage('result-package-docker') {
+             agent any
+             when {
+              branch 'master'
+             }
+            steps {
+                echo 'Packaging result app with docker '
+            script {
+                docker.withRegistry('https://index.docker.io/v2/', 'dockerlogin'){
+                def workerImage = docker.build("hutinskit/result:v${env.BUILD_ID}", "./result")
+                workerImage.push()
+                workerImage.push("${env.BRANCH_NAME}")
+                }
+            }
+
+            }
+        }
     }
-    
+
     post {
         always {
             echo 'Pipeline for worker is completed.'
         }
     }
-    
-    
+
+
 }

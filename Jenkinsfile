@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('worker-build') {
+        stage('worker-build!') {
         agent {
             docker {
             image 'maven:3.8.1-adoptopenjdk-11'

@@ -58,7 +58,9 @@ pipeline {
              agent any
              when {
               branch 'master'
+              changeset "**/worker/**"
              }
+
             steps {
                 echo 'Packaging worker app with docker '
             script {
@@ -127,6 +129,7 @@ pipeline {
              agent any
              when {
               branch 'master'
+              changeset "**/vote/**"
              }
 
             steps {
@@ -177,6 +180,7 @@ pipeline {
              agent any
              when {
               branch 'master'
+              changeset "**/result/**"
              }
             steps {
                 echo 'Packaging result app with docker '
@@ -193,8 +197,6 @@ pipeline {
 
         stage('Sonarqube') {
         agent any
-
-
 
         environment{
           sonarpath = tool 'SonarScanner' // the namdse you have given the sonarscanner installation in Global Tool Configuration

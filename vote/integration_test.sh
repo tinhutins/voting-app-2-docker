@@ -2,7 +2,7 @@
 
 cd integration
 
-echo "I: Creating environment to run  integration tests..."
+echo "Creating environment to run  integration tests..."
 
 docker-compose build
 docker-compose up -d

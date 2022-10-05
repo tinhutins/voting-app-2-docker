@@ -112,7 +112,7 @@ pipeline {
         stage('vote-integration-tests') {
         agent any
         when {
-          changeset "**/vote/**"
+
           branch 'master'
           }
 
